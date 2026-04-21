@@ -37,11 +37,11 @@ Sektor Enterprise Software mencatat angka PHK tertinggi dengan 31.600 pekerjaan,
 
 ### 3. Puncak Gelombang Layoff
 
-Kalau dilihat dari time-series, Februari 2026 jelas jadi bulan paling ramai dengan total 37.725 PHK, yang naik drastis dari Januari yang hanya 6.500. Ini hampir sepenuhnya ditarik oleh pengumuman Oracle (30.000) dan Cisco (6.000). Maret turun ke 17.800, tapi masih jauh di atas level awal tahun. Secara mingguan, akselerasi terbesar terjadi di minggu pertama Februari.
+Februari 2026 menjadi bulan paling ramai dengan total 37.725 PHK, yang naik drastis dari Januari yang hanya 6.500. Ini hampir sepenuhnya ditarik oleh pengumuman Oracle (30.000) dan Cisco (6.000). Maret turun ke 17.800, tapi masih jauh di atas level awal tahun. Secara mingguan, akselerasi terbesar terjadi di minggu pertama Februari.
 
 ### 4. Korelasi Layoff dan Investasi AI
 
-Yang menarik (dan agak ironis) adalah korelasinya, dimana perusahaan yang paling banyak melakukan PHK justru yang paling besar investasi AI-nya secara bersamaan. Korelasi antar variabel ini tercatat di r = 0,56. Meta misalnya, mengumumkan rencana PHK 16.000 orang sambil menggelontorkan $115 miliar untuk infrastruktur AI. Amazon juga sama, dengan 16.000 PHK, tapi investasi AI $100 miliar. Ini menunjukkan bahwa yang terjadi bukan perusahaan sedang kesulitan, tapi memang ada pergantian jenis tenaga kerja yang dibutuhkan.
+Korelasi antara layoff dan investasi terjadi dimana perusahaan yang paling banyak melakukan PHK justru yang paling besar investasi AI-nya secara bersamaan. Korelasi antar variabel ini tercatat di r = 0,56. Meta misalnya, mengumumkan rencana PHK 16.000 orang sambil menggelontorkan $115 miliar untuk infrastruktur AI. Amazon juga sama, dengan 16.000 PHK, tapi investasi AI $100 miliar. Ini menunjukkan bahwa yang terjadi bukan perusahaan sedang kesulitan, tapi memang ada pergantian jenis tenaga kerja yang dibutuhkan.
 
 ### 5. Respons Stock Market
 
