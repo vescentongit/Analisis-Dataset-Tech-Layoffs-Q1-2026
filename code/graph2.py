@@ -1,5 +1,5 @@
 """
-Analisis Tech Layoffs Q1 2026 - Time-Series
+Analisis Dataset Tech Layoffs Q1 2026 - Time-Series
 library used : pandas, numpy, matplotlib
 output       : analisis_phk_timeseries.png
 """
@@ -102,7 +102,7 @@ GRAY   = "#78909C"
 
 # ==================== TIME-BASED ANALYSIS & VISUALIZATION ====================
 fig2, axes = plt.subplots(3, 2, figsize=(18, 17))
-fig2.suptitle("Analisis Time-Series — Gelombang PHK Q1 2026",
+fig2.suptitle("Analisis Dataset Tech Layoffs Q1 2026 - Time-Series",
             fontsize=15, fontweight="bold", y=0.995)
 plt.subplots_adjust(hspace=0.6, wspace=0.38)
 
@@ -187,31 +187,39 @@ for i, (ai_r, total) in enumerate(zip(monthly["ai_ratio"], monthly["total_phk"])
     ax.text(i, ai_r + (100-ai_r)/2,   f"{100-ai_r:.0f}%", ha="center", va="center", color="white", fontsize=10, fontweight="bold")
     ax.text(i, 103, f"n={int(total):,}", ha="center", fontsize=8, color="#444")
 
-# 2e Distribusi awal/tengah/akhir bulan
+# 2e Histogram distribusi hari pengumuman PHK dalam bulan
 ax = axes[2, 0]
-day_bins = df.copy()
-day_bins["period"] = pd.cut(day_bins["day_of_month"], bins=[0, 10, 20, 31],
-                            labels=["Awal (1–10)", "Tengah (11–20)", "Akhir (21–31)"])
-period_summary = day_bins.groupby("period", observed=True).agg(
-    total_phk=("jobs_cut", "sum"), jumlah_event=("company", "count")).reset_index()
-bars_p = ax.bar(period_summary["period"], period_summary["total_phk"],
-                color=[BLUE, ORANGE, GREEN], edgecolor="white", width=0.5)
-ax2p = ax.twinx()
-ax2p.plot(range(len(period_summary)), period_summary["jumlah_event"],
-        color=GRAY, marker="o", linewidth=2, markersize=7)
-ax2p.set_ylabel("Jumlah event PHK", color=GRAY, fontsize=8)
-ax2p.tick_params(axis="y", labelcolor=GRAY, labelsize=8)
-ax2p.set_ylim(0, period_summary["jumlah_event"].max() * 2)
-ax.set_ylabel("Total PHK", fontsize=9)
-ax.set_title("Distribusi PHK dalam Bulan\n(awal vs tengah vs akhir)", fontsize=10, pad=8)
-ax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f"{int(v):,}"))
-ax.set_ylim(0, period_summary["total_phk"].max() * 1.2)
-ax.tick_params(axis="x", labelsize=9)
+
+bins = range(1, 32)  # hari 1-31
+
+# plot histogram frekuensi event (jumlah perusahaan per hari)
+ax.hist(df["day_of_month"], bins=bins, align="left", 
+        color=ORANGE, edgecolor="white", alpha=0.85, label="Frekuensi event")
+
+# overlay: total jobs_cut per hari sebagai line chart
+jobs_per_day = df.groupby("day_of_month")["jobs_cut"].sum()
+ax2h = ax.twinx()
+ax2h.plot(jobs_per_day.index, jobs_per_day.values,color=BLUE, 
+            linewidth=2, marker="o", markersize=5, label="Total PHK")
+ax2h.set_ylabel("Total jobs cut", color=BLUE, fontsize=8)
+ax2h.tick_params(axis="y", labelcolor=BLUE, labelsize=8)
+ax2h.yaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f"{int(v):,}"))
+ax2h.set_ylim(0, jobs_per_day.max() * 2.2)
+
+# shading awal / tengah / akhir
+ax.axvspan(1,  10, alpha=0.06, color=BLUE)
+ax.axvspan(11, 20, alpha=0.06, color=ORANGE)
+ax.axvspan(21, 31, alpha=0.06, color=GREEN)
+ax.text(5.5,  ax.get_ylim()[1] * 0.88, "Awal",   ha="center", fontsize=7, color=BLUE)
+ax.text(15.5, ax.get_ylim()[1] * 0.88, "Tengah", ha="center", fontsize=7, color=ORANGE)
+ax.text(26,   ax.get_ylim()[1] * 0.88, "Akhir",  ha="center", fontsize=7, color=GREEN)
+
+ax.set_xlabel("Tanggal dalam bulan", fontsize=9)
+ax.set_ylabel("Frekuensi event PHK", fontsize=9)
+ax.set_title("Histogram Hari Pengumuman PHK\n(dalam bulan, semua bulan digabung)", fontsize=10, pad=8)
+ax.set_xticks([1, 5, 10, 15, 20, 25, 31])
 ax.spines[["top", "right"]].set_visible(False)
-for bar in bars_p:
-    h = bar.get_height()
-    ax.text(bar.get_x() + bar.get_width()/2, h + 500, f"{int(h):,}",
-            ha="center", fontsize=9, fontweight="bold")
+ax.yaxis.set_major_locator(mticker.MaxNLocator(integer=True))
 
 # 2f Frekuensi event + avg % jobs cut per bulan
 ax = axes[2, 1]
@@ -232,5 +240,5 @@ for bar in bars_e:
     ax.text(bar.get_x() + bar.get_width()/2, h + 0.3, str(int(h)),
             ha="center", fontsize=10, fontweight="bold")
 
-plt.savefig("analisis_phk_timeseries.png", dpi=150, bbox_inches="tight")
+plt.savefig("res/analisis_phk_timeseries.png", dpi=150, bbox_inches="tight")
 plt.show()

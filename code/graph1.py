@@ -176,5 +176,5 @@ for i in range(5):
 ax6.set_title("Korelasi Antar Variabel", fontsize=10, pad=8)
 plt.colorbar(im, ax=ax6, fraction=0.046, pad=0.04)
 
-plt.savefig("analisis_phk_multidimensi.png", dpi=150, bbox_inches="tight")
+plt.savefig("res/analisis_phk_multidimensi.png", dpi=150, bbox_inches="tight")
 plt.show()
