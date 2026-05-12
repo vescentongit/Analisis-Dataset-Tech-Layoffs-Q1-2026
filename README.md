@@ -62,7 +62,7 @@ Secara keseluruhan, Q1 2026 memperlihatkan pola yang cukup jelas, dimana perusah
 
 ## Tools
 
-- Python (pandas, matplotlib, numpy)
+- Python (pandas, matplotlib, numpy, seaborn)
 
 ---
 
